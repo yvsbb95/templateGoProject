@@ -1,11 +1,16 @@
 package main
 
 import (
+	"github.com/yvsbb95/templateGoProject/pkg/config"
+	"github.com/yvsbb95/templateGoProject/pkg/infrastructure/controller/grpc"
 	"log"
-	"templateGoProject/pkg/config"
 )
 
 func main() {
-	config := config.LoadConfig()
-	log.Println("Config from local env", config)
+	// Read config
+	configuration, grpcConfig := config.LoadConfig()
+	log.Println("Config from local env", configuration)
+
+	// Run GRPC Server
+	grpc.InitServer(grpcConfig)
 }

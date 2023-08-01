@@ -10,12 +10,17 @@ type Config struct {
 	TestString string `mapstructure:"TEST_STRING"`
 }
 
+type GrpcConfig struct {
+	Port string `mapstructure:"GRPC_PORT"`
+}
+
 var configLoaded = false
 var config *Config
+var grpcConfig *GrpcConfig
 
-func LoadConfig() *Config {
+func LoadConfig() (*Config, *GrpcConfig) {
 	if configLoaded {
-		return config
+		return config, grpcConfig
 	}
 	viper.AddConfigPath("./pkg/config")
 	viper.SetConfigName("local")
@@ -35,5 +40,11 @@ func LoadConfig() *Config {
 		log.Panicln("Error unmarshalling config", err)
 	}
 
-	return config
+	if err := viper.Unmarshal(&grpcConfig); err != nil {
+		log.Panicln("Error unmarshalling grpcConfig", err)
+	}
+
+	configLoaded = true
+
+	return config, grpcConfig
 }

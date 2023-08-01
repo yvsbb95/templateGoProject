@@ -13,3 +13,7 @@ This codebase contains the following:
 10. AWS SQS send and receive messages 
 11. Kafka connection, send and receive messages 
 12. RabbitMQ connection, send and receive messages
+13. Context
+14. Channel
+15. Goroutine
+16. Dockerfile
